@@ -1,10 +1,9 @@
 .contaiter {
   margin: 100px;
   padding: 30px;
-  border: 1px solid black;
   border-radius: 20px;
   color: white;
-  background: #FF7F50;
+  background: #1E1E1E;
   height: 400px;
   display: flex;
   position: block;
@@ -27,12 +26,12 @@
   width: 180px;
   border-radius: 5px;
   color: white;
-  background-color: #FF7F50;
+  background-color: #1E1E1E;
 }
 
 .button:hover {
   background-color: white;
-  color: #FF7F50;
+  color: #1E1E1E;
 }
 
 a {
