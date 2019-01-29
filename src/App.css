@@ -13,11 +13,16 @@
   padding-right: 100px;
 }
 
+
 .class-giturl {
-  /* overflow-y:scroll; */
-  height: 50px;
-  width: 700px;
-  padding: 10px;
+  overflow-y:scroll;
+  height: 350px;
+  margin: 10px;
+  width: 800px;
+  margin-bottom: 10px;
+}
+.div-user {
+  padding-bottom: 5px;
 }
 
 .button {

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import Giturl from './components/Giturl';
 import Form from './components/Form';
+import Test from './components/Test';
+
 import './App.css';
 
 
@@ -14,26 +16,35 @@ class App extends Component {
 
   state = {
     result: [],
+    error: undefined,
   }
 
   gettingUrl = async (e) => { //e - ивент, async - для того что бы все роботало асинхронно
     e.preventDefault();
 
-    const URL = "https://api.github.com/";
+    window.addEventListener(TypeError, function(e) {
+    console.log("ошибка"+e);
+    }, true);
 
-    if ( URL === "https://api.github.com/") {
+    const URL = "https://api.github.com/";
+    // console.log(TypeError);
+    // const online = navigator.onLine;
+    const online = window.navigator.onLine;
+    console.log(online);
+
+    if ( URL === "https://api.github.com/" && online === true) {
+    // if (online === true) {
       const USE_URL = await fetch(URL); // fetch - метод позволяющая прочитать url адрес и получить с него данные ,await - используеться из-за того что мы используем асинхронный запрос к этому url адресу
       const data = await USE_URL.json(); // перевод в удобный json формат
-      // console.log(data);
+      const dataArr = Object.entries(data);
 
-      this.state.result = Object.entries(data);
 
-      // const b = this.state.result;
-      console.log(this.state.result);
-
+      this.setState({
+        result: dataArr,
+      })
     } else {
       this.setState({
-        error: "URL адрес не введен!"
+        error: "URL адрес не введен, или введен не верно!"
       });
     }
   }
@@ -44,15 +55,21 @@ class App extends Component {
       <div className="contaiter">
         <Form urlMethod={this.gettingUrl} />
 
-        <div>
+        <div  className="class-giturl-main">
+          <div className="class-giturl-h3">
+            <h3>Полученные URL:</h3>
+          </div>
+          <div className="class-giturl">
+            {this.state.result.map((url, user_id) => {
+              return (<Giturl
+                        url={url}
+                        key={user_id}
+                      />);
+            })}
+            {this.state.error}
+          </div>
+         </div>
 
-        {this.state.result.map(({current_user_url, code_search_url}) =>
-          <Giturl
-            author={current_user_url}
-            key={code_search_url}
-          />
-        )}
-        </div>
       </div>
     );
   }
